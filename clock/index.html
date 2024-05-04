@@ -5,7 +5,7 @@
   - https://www.nayuki.io/page/full-screen-clock-javascript
   -->
   <!DOCTYPE html>
-  <html style="height:100%; margin:0; padding:0">
+  <html style="margin:0; padding:0">
       <head>
           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
           <title>Clock</title>
@@ -27,7 +27,7 @@
               "use strict";
               
               let textElem = document.getElementById("clocktext");
-              const targetWidth = 0.9;  // Proportion of full screen width
+              const targetWidth = 0.7;  // Proportion of full screen width
               let curFontSize = 20;  // Do not change
               
               function convertTZ(date, tzString) {
