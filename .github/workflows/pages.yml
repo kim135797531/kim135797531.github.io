@@ -33,7 +33,7 @@ jobs:
           gem install jekyll -v "~> 3.10"
           gem install jekyll-remote-theme jekyll-sass-converter
 
-      - name: Build Jekyll (source: emfant/docs)
+      - name: "Build Jekyll (source: emfant/docs)"
         run: jekyll build --source emfant/docs --destination _site
 
       - name: Upload artifact
