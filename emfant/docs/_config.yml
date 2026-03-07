@@ -1,0 +1,71 @@
+# EMFANT - Embodied Model of Fetus And infaNT
+# Jekyll configuration for GitHub Pages
+
+title: EMFANT
+description: >-
+  Biologically plausible human fetal and infant simulation in MuJoCo.
+  A comprehensive musculoskeletal simulation platform for studying 
+  early cognitive development.
+
+# Site settings
+baseurl: "" # subpath of your site, e.g. /emfant
+url: "" # base hostname, e.g. https://username.github.io
+
+# Theme settings
+remote_theme: pages-themes/minimal@v0.2.0
+plugins:
+  - jekyll-remote-theme
+  - jekyll-sass-converter
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Kramdown settings
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# Collections for tabbed version
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# Exclude from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Site metadata
+author:
+  name: Dongmin Kim, Hoshinori Kanazawa, Yasuo Kuniyoshi
+  affiliation: The University of Tokyo
+
+# Navigation for tabbed version
+navigation:
+  - title: Home
+    url: /
+  - title: Home
+    url: /index-tabbed/
+  - title: Physical Model
+    url: /physical-model/
+  - title: Neural Model
+    url: /neural-model/
+  - title: Applications
+    url: /applications/
+  - title: Getting Started
+    url: /getting-started/
+

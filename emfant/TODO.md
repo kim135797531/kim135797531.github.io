@@ -1,0 +1,3 @@
+- about mocap
+- insert video
+- name on top image?

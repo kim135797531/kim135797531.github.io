@@ -1,0 +1,13 @@
+{% assign current_page = page.path | remove: ".md" | split: "/" | last %}
+<div class="tab-nav-container">
+  <nav class="tab-nav">
+    <a href="index-tabbed.html" class="tab-nav-logo">EMFANT</a>
+    <a href="index-tabbed.html"{% if current_page == "index-tabbed" %} class="active"{% endif %}>Home</a>
+    <a href="tab-physical-model.html"{% if current_page == "tab-physical-model" %} class="active"{% endif %}>Physical Model</a>
+    <a href="tab-neural-model.html"{% if current_page == "tab-neural-model" %} class="active"{% endif %}>Neural Model</a>
+    <a href="tab-osim2mujoco.html"{% if current_page == "tab-osim2mujoco" %} class="active"{% endif %}>Osim2Mujoco</a>
+    <a href="tab-applications.html"{% if current_page == "tab-applications" %} class="active"{% endif %}>Applications</a>
+    <a href="tab-getting-started.html"{% if current_page == "tab-getting-started" %} class="active"{% endif %}>Getting Started</a>
+  </nav>
+</div>
+

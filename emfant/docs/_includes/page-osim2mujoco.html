@@ -1,0 +1,24 @@
+{% assign osim = site.data.osim2mujoco %}
+
+<h3>Features</h3>
+
+<ul>
+  {% for feature in osim.features %}
+  <li><strong>{{ feature.title }}</strong>: {{ feature.description }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Supported Models</h3>
+
+<ul>
+  {% for model in osim.supported_models %}
+  <li><strong>{{ model.category }}</strong>: {{ model.items | join: ", " }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Usage</h3>
+
+<div class="code-block">
+<pre>{{ osim.usage.code }}</pre>
+</div>
+

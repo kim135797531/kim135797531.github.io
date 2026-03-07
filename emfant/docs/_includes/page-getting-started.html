@@ -1,0 +1,259 @@
+<h2>Requirements</h2>
+
+<div class="req-grid">
+  <div class="req-item">
+    <h4>Python</h4>
+    <p>3.9+ (Anaconda recommended)</p>
+  </div>
+  <div class="req-item">
+    <h4>MuJoCo</h4>
+    <p>3.3.0+ (ISI modified version)</p>
+  </div>
+  <div class="req-item">
+    <h4>Gymnasium</h4>
+    <p>1.0.0a1+</p>
+  </div>
+  <div class="req-item">
+    <h4>Git LFS</h4>
+    <p>For large model files</p>
+  </div>
+</div>
+
+<h3>System Dependencies (Ubuntu)</h3>
+
+<div class="code-block">
+<pre>sudo apt update
+sudo apt install git git-lfs build-essential cmake libglfw3-dev
+sudo apt install libgl1-mesa-dev libxinerama-dev libxcursor-dev libxrandr-dev libxi-dev ninja-build</pre>
+</div>
+
+<h2>Installation Steps</h2>
+
+<div class="step">
+  <span class="step-number">1</span>
+  <h3>Clone Repositories</h3>
+  <div class="step-content">
+    <div class="code-block">
+<pre><span class="comment"># Clone MuJoCo (ISI modified version)</span>
+git clone http://gitlab/baby_simulator/mujoco.git
+
+<span class="comment"># Clone mujoco_infant</span>
+git clone http://gitlab/baby_simulator/mujoco_infant.git
+cd mujoco_infant
+git lfs install
+git lfs pull
+cd ..
+
+<span class="comment"># Clone mujoco_infant_application</span>
+git clone http://gitlab/baby_simulator/mujoco_infant_application.git
+cd mujoco_infant_application
+git lfs install
+git lfs pull
+cd ..
+
+<span class="comment"># (Optional) Clone osim2mujoco</span>
+git clone http://gitlab/baby_simulator/osim2mujoco.git</pre>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-number">2</span>
+  <h3>Create Conda Environment</h3>
+  <div class="step-content">
+    <div class="code-block">
+<pre>cd mujoco_infant_application
+conda env create -f ./environment_general.yml
+conda activate mujoco_infant</pre>
+    </div>
+    
+    <div class="note-box info">
+      <strong>Note:</strong> Pre-defined environment files are available for specific Ubuntu versions: <code>environment_20_04.yml</code>, <code>environment_24_04.yml</code>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-number">3</span>
+  <h3>Set Environment Variables</h3>
+  <div class="step-content">
+    <div class="code-block">
+<pre><span class="comment"># Example paths - adjust for your system</span>
+export MUJOCO_PATH=/home/user/.mujoco/mujoco-3.3.0
+export MUJOCO_PLUGIN_PATH=/home/user/.mujoco/mujoco-3.3.0/bin/mujoco_plugin
+
+mkdir -p $MUJOCO_PATH</pre>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-number">4</span>
+  <h3>Build MuJoCo (ISI Modified)</h3>
+  <div class="step-content">
+    <div class="code-block">
+<pre>cd mujoco
+git checkout develop
+mkdir -p build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=$MUJOCO_PATH -DCMAKE_BUILD_TYPE=Release
+cmake --build . -j16
+cmake --install .
+cd ..</pre>
+    </div>
+    
+    <p>Test the build:</p>
+    <div class="code-block">
+<pre>./build/bin/simulate ../mujoco_infant/mujoco_infant/envs/assets/240703_01_isi_infant_uterus_bvp.xml</pre>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-number">5</span>
+  <h3>Install MuJoCo Python Bindings</h3>
+  <div class="step-content">
+    <div class="code-block">
+<pre>cd python
+bash make_sdist.sh
+cd dist
+pip install mujoco-3.3.0.tar.gz</pre>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-number">6</span>
+  <h3>Install mujoco_infant</h3>
+  <div class="step-content">
+    <div class="code-block">
+<pre>cd ../../..
+cd mujoco_infant
+pip install -e .</pre>
+    </div>
+  </div>
+</div>
+
+<h2>Running Examples</h2>
+
+<h3>Desktop Environment</h3>
+<div class="code-block">
+<pre>cd mujoco_infant_application
+PYTHONPATH=. python program/simulation/01_infant_joint.py</pre>
+</div>
+
+<h3>Server with X Server</h3>
+<div class="code-block">
+<pre><span class="comment"># Check if X server is running</span>
+ps -ef | grep -i xorg
+
+<span class="comment"># Run with EGL (headless)</span>
+MUJOCO_GL=egl PYTHONPATH=. python program/simulation/01_infant_joint.py</pre>
+</div>
+
+<h3>Server without X Server</h3>
+<div class="code-block">
+<pre><span class="comment"># Requires xvfb: sudo apt install xvfb</span>
+PYTHONPATH=. xvfb-run -s "-screen 0 1000x1000x24" python program/simulation/01_infant_joint.py</pre>
+</div>
+
+<div class="note-box">
+  <strong>Ubuntu 24.04:</strong> If you encounter GLIBC errors, add <code>import mujoco</code> at the top of your scripts before other imports.
+</div>
+
+<h2>Quick Start Code</h2>
+
+<div class="code-block">
+<pre>import gymnasium as gym
+import mujoco_infant.envs  <span class="comment"># Register environments</span>
+
+<span class="comment"># Create environment</span>
+env = gym.make(
+    id="ISICallbackJntPosActuatorEnv-v0",
+    model_path="isi://240703_03_isi_infant_uterus_mocap.xml",
+    render_mode="human",
+)
+
+<span class="comment"># Reset environment</span>
+observation, info = env.reset(seed=42, options={})
+
+<span class="comment"># Run simulation loop</span>
+while True:
+    action = env.action_space.sample()
+    observation, reward, terminated, truncated, info = env.step(action)
+    
+    if terminated or truncated:
+        observation, info = env.reset()</pre>
+</div>
+
+<h2>Simulation Speed</h2>
+
+<p>The default timestep is 0.001s (1ms). You can increase the timestep for faster simulation:</p>
+
+<table class="simple-table">
+  <tr>
+    <th>Timestep</th>
+    <th>Speed</th>
+    <th>Stability</th>
+  </tr>
+  <tr>
+    <td>0.001s (1ms)</td>
+    <td>Slowest</td>
+    <td>Most stable</td>
+  </tr>
+  <tr>
+    <td>0.002s, 0.005s</td>
+    <td>Medium</td>
+    <td>Good compromise</td>
+  </tr>
+  <tr>
+    <td>0.010s (10ms)</td>
+    <td>Fastest</td>
+    <td>May be unstable with muscles/spinal circuits</td>
+  </tr>
+</table>
+
+<p>To change timestep, modify <code>&lt;option timestep="0.001"&gt;</code> in the model XML file.</p>
+
+<h2>Updating MuJoCo</h2>
+
+<p>When a new version of MuJoCo is released and the ISI modified version is updated:</p>
+
+<div class="code-block">
+<pre><span class="comment"># 1. Remove old packages</span>
+conda activate mujoco_infant
+pip uninstall mujoco_infant mujoco gymnasium
+
+<span class="comment"># 2. Install updated gymnasium</span>
+pip install --pre gymnasium
+
+<span class="comment"># 3. Pull and rebuild MuJoCo</span>
+cd mujoco
+rm -rf ./build
+git checkout develop
+git pull origin develop
+<span class="comment"># Then follow build steps 4-5 above</span>
+
+<span class="comment"># 4. Pull and reinstall mujoco_infant</span>
+cd ../mujoco_infant
+git pull origin master
+pip install -e .
+
+<span class="comment"># 5. Pull mujoco_infant_application</span>
+cd ../mujoco_infant_application
+git pull origin master</pre>
+</div>
+
+<h2>Troubleshooting</h2>
+
+<div class="note-box">
+  <strong>GLIBC Error on Ubuntu 24.04:</strong> Add <code>import mujoco</code> as the first import in your script.
+</div>
+
+<div class="note-box info">
+  <strong>Rendering Issues:</strong> Try different rendering backends: <code>MUJOCO_GL=egl</code>, <code>MUJOCO_GL=osmesa</code>, or <code>MUJOCO_GL=glfw</code>
+</div>
+
+<div class="note-box">
+  <strong>Git LFS Issues:</strong> Ensure Git LFS is installed (<code>git lfs install</code>) and run <code>git lfs pull</code> in each repository.
+</div>

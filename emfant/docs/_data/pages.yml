@@ -1,0 +1,27 @@
+# Page metadata
+pages:
+  tab-physical-model:
+    title: "Physical Model"
+    subtitle: "Detailed musculoskeletal system with biologically accurate parameters"
+    nav_title: "Physical Model"
+  
+  tab-neural-model:
+    title: "Neural Model"
+    subtitle: "Biologically plausible spinal cord circuits and proprioceptive feedback"
+    nav_title: "Neural Model"
+  
+  tab-applications:
+    title: "Applications"
+    subtitle: "Simulation programs for various research scenarios"
+    nav_title: "Applications"
+  
+  tab-osim2mujoco:
+    title: "Osim2Mujoco"
+    subtitle: "Conversion tool that transforms OpenSim musculoskeletal models (.osim) into MuJoCo format (.xml)"
+    nav_title: "Osim2Mujoco"
+  
+  tab-getting-started:
+    title: "Getting Started"
+    subtitle: "Installation guide and quick start for EMFANT"
+    nav_title: "Getting Started"
+

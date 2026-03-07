@@ -1,0 +1,34 @@
+# docker-compose.yml
+services:
+  jekyll:
+    build:
+      context: .
+      args:
+        PAGES_VERSION: "232"   # 必要に応じて更新
+    image: github-pages-test-jekyll:1.0
+    working_dir: /site
+    ports:
+      - "4000:4000"
+      - "35729:35729"
+    volumes:
+      - ./docs:/site/docs
+      - ./.git:/site/.git:ro
+    environment:
+      JEKYLL_ENV: production   # 本番に近い挙動で確認
+      # ↓ 自分の "ID/リポジトリ名" を書いておくと、site.github.repository_name にリポジトリ名がセットされます
+      PAGES_REPO_NWO: "your-git-id/repo-name"
+    # 通常は CMD に従って serve が起動
+    # build したいときだけ:
+    # command: ["build","--source","docs"]
+    # 起動オプションを弄りたい場合:
+    # command: [
+    #   "serve",
+    #   "--host","0.0.0.0",
+    #   "--port","4000",
+    #   "--safe",
+    #   "--livereload",
+    #   "--watch",
+    #   "--force_polling",
+    #   "--source","docs",
+    #   "--config","docs/_config.yml,_config.local.yml"
+    # ]

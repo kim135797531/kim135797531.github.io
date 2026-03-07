@@ -1,0 +1,10 @@
+{% assign stats = site.data.site.stats %}
+<div class="stats-bar">
+  {% for stat in stats %}
+  <div class="stat">
+    <div class="stat-num">{{ stat.number }}</div>
+    <div class="stat-label">{{ stat.label }}</div>
+  </div>
+  {% endfor %}
+</div>
+

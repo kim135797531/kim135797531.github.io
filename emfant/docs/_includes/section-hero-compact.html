@@ -1,0 +1,12 @@
+{% assign hero = site.data.site.hero %}
+<div class="hero-compact">
+  <h1>{{ hero.title }}</h1>
+  <div class="acronym"><strong>E</strong>mbodied <strong>M</strong>odel of <strong>F</strong>etus <strong>A</strong>nd infa<strong>NT</strong></div>
+  <p class="tagline">{{ hero.tagline_compact }}</p>
+  <div class="hero-images-row">
+    {% for image in hero.images %}
+    <img src="{{ image.src }}" alt="{{ image.alt }}">
+    {% endfor %}
+  </div>
+</div>
+

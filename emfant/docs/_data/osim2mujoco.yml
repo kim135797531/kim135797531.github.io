@@ -1,0 +1,29 @@
+# Osim2Mujoco data
+description: "Osim2Mujoco is a conversion tool that transforms OpenSim musculoskeletal models (.osim) into MuJoCo format (.xml)."
+
+features:
+  - title: "Comprehensive Parsing"
+    description: "Parses OpenSim XML including bodies, joints, muscles, and constraints"
+  - title: "UML-based Data Structure"
+    description: "Systematic data management for accurate conversion"
+  - title: "Coupling Joint Support"
+    description: "Converts CoordinateCouplerConstraint to MuJoCo equality elements"
+  - title: "Wrap Object Conversion"
+    description: "Transforms muscle path constraints"
+
+supported_models:
+  - category: "Arm Models"
+    items: ["Saul et al.", "McFarland et al."]
+  - category: "Leg Models"
+    items: ["Lai et al."]
+  - category: "Full Body"
+    items: ["Gait2392 (lumbar muscles)"]
+
+usage:
+  code: |
+    # Select target model in converter.py
+    from osim2mujoco.configs.full_body import variant
+
+    # Run conversion
+    python converter.py
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Google Fonts: Inter for body text, Playfair Display for headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+{% seo %}
+    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+    <style>
+      /* Override minimal theme's narrow container */
+      body {
+        max-width: 100% !important;
+        padding-top: 70px !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+        margin: 0 !important;
+        background: #fff !important;
+        color: #333 !important;
+      }
+      .wrapper {
+        max-width: 1400px !important;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      /* Ensure all text is visible */
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      {{ content }}
+    </div>
+  </body>
+</html>
+

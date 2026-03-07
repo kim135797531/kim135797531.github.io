@@ -1,0 +1,188 @@
+<h2>Spinal Cord Circuit Overview</h2>
+
+<div class="circuit-box">
+  <img src="assets/images/spinal_circuit_with_tactile.png" alt="Spinal cord circuit diagram" style="max-width: 500px;">
+  <p class="img-caption">Spinal cord circuit model with tactile feedback (from Yamada et al., 2016)</p>
+</div>
+
+<p>The neural model implements a biologically plausible spinal cord circuit that generates spontaneous fetal movements without explicit motor commands. Movement emerges from the dynamics of body-environment interaction.</p>
+
+<h2>Circuit Components</h2>
+
+<div class="three-col">
+  <div class="neural-card">
+    <h4>α Motor Neuron</h4>
+    <p>Output commands to muscles. Receives input from BVP oscillator, spindle Ia, and tendon Ib.</p>
+  </div>
+  <div class="neural-card">
+    <h4>γ Motor Neuron</h4>
+    <p>Controls muscle spindle sensitivity. Receives input from α motor neuron.</p>
+  </div>
+  <div class="neural-card">
+    <h4>S0 Neuron</h4>
+    <p>Processes afferent sensory signals from spindle Ia with low-pass filtering.</p>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="feature-box">
+    <h4>Neural Oscillator (BVP)</h4>
+    <p>Bonhoeffer-Van der Pol oscillator generates rhythmic motor patterns. Receives input from S0 neurons and brain control signal. Parameters based on Kuniyoshi & Sangawa (2006).</p>
+  </div>
+  <div class="feature-box">
+    <h4>Brain Control</h4>
+    <p>Simple control signal (I_control) modulates BVP oscillator activity. Can be used to study effects of descending control on motor patterns.</p>
+  </div>
+</div>
+
+<h2>Proprioceptors</h2>
+
+<div class="two-col">
+  <div class="feature-box">
+    <h4>Muscle Spindle (Ia Afferent)</h4>
+    <p>Senses muscle length and velocity. Model based on He et al., with dynamic and static components responding to gamma motor neuron activation.</p>
+    <ul style="margin-top: 0.5rem;">
+      <li>Dynamic sensitivity to length changes</li>
+      <li>Static response to absolute length</li>
+      <li>Gamma-dynamic activation control</li>
+    </ul>
+  </div>
+  <div class="feature-box">
+    <h4>Golgi Tendon Organ (Ib Afferent)</h4>
+    <p>Senses muscle tension/force. Provides inhibitory feedback to prevent excessive muscle activation.</p>
+    <ul style="margin-top: 0.5rem;">
+      <li>Responds to muscle force</li>
+      <li>Peak force normalized output</li>
+      <li>Inhibitory connection to α neuron</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Signal Delays</h2>
+
+<p>The circuit implements biologically realistic signal transmission delays:</p>
+
+<table class="spec-table">
+  <tr>
+    <th>Pathway</th>
+    <th>Delay</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>Tactile → Spinal</td>
+    <td>10 ms</td>
+    <td>Cutaneous afferent transmission</td>
+  </tr>
+  <tr>
+    <td>Spindle → Spinal</td>
+    <td>10 ms</td>
+    <td>Ia afferent transmission</td>
+  </tr>
+  <tr>
+    <td>Tendon → Spinal</td>
+    <td>10 ms</td>
+    <td>Ib afferent transmission</td>
+  </tr>
+  <tr>
+    <td>Spindle S0 → BVP</td>
+    <td>50 ms</td>
+    <td>Processed signal to oscillator</td>
+  </tr>
+  <tr>
+    <td>BVP → α Neuron</td>
+    <td>50 ms</td>
+    <td>Oscillator output delay</td>
+  </tr>
+  <tr>
+    <td>α → Muscle</td>
+    <td>10 ms</td>
+    <td>Efferent motor command</td>
+  </tr>
+  <tr>
+    <td>γ → Spindle</td>
+    <td>10 ms</td>
+    <td>Gamma motor neuron effect</td>
+  </tr>
+</table>
+
+<h2>Gain Parameters</h2>
+
+<p>Key gain parameters controlling circuit behavior:</p>
+
+<table class="spec-table">
+  <tr>
+    <th>Connection</th>
+    <th>Gain</th>
+    <th>Notes</th>
+  </tr>
+  <tr>
+    <td>Spindle → S0</td>
+    <td>0.25</td>
+    <td>Ia to S0 neuron</td>
+  </tr>
+  <tr>
+    <td>Spindle → α</td>
+    <td>0.04</td>
+    <td>Stretch reflex (Sangawa et al.)</td>
+  </tr>
+  <tr>
+    <td>Tendon → α</td>
+    <td>-1.0</td>
+    <td>Inhibitory Ib feedback</td>
+  </tr>
+  <tr>
+    <td>S0 → BVP</td>
+    <td>1.0</td>
+    <td>Sensory input to oscillator</td>
+  </tr>
+  <tr>
+    <td>BVP → α</td>
+    <td>1.0</td>
+    <td>Oscillator to motor output</td>
+  </tr>
+  <tr>
+    <td>α → Spindle</td>
+    <td>0.5</td>
+    <td>Alpha-gamma coactivation</td>
+  </tr>
+  <tr>
+    <td>γ → Spindle</td>
+    <td>1.0</td>
+    <td>Gamma sensitivity control</td>
+  </tr>
+  <tr>
+    <td>α → γ</td>
+    <td>0.5</td>
+    <td>Alpha to gamma coupling</td>
+  </tr>
+</table>
+
+<h2>Muscle Activation Clipping</h2>
+
+<div class="feature-box">
+  <h4>Activation Range</h4>
+  <p>Based on inverse kinematics from motion capture data, the maximum muscle activation is clipped to 0.15 (15%). Actual infant movements show activation levels of 0.10-0.20 maximum, with average around 0.05. This prevents unrealistic high-force movements in simulation.</p>
+</div>
+
+<h2>Cerebral Cortex Model (Optional)</h2>
+
+<p>For cortical learning experiments, EMFANT can be connected to a large-scale cortex simulation:</p>
+
+<div class="two-col">
+  <div class="feature-box">
+    <h4>Model Scale</h4>
+    <ul>
+      <li>87,555 voxels</li>
+      <li>2,626,650 neurons</li>
+      <li>5.25 billion synapses</li>
+    </ul>
+  </div>
+  <div class="feature-box">
+    <h4>Learning Model</h4>
+    <ul>
+      <li>Leaky Integrate-and-Fire (LIF)</li>
+      <li>Spike Timing-Dependent Plasticity (STDP)</li>
+      <li>Phase coding for sensory input</li>
+    </ul>
+  </div>
+</div>

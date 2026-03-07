@@ -1,0 +1,182 @@
+<h2>Model Specifications</h2>
+
+<table class="spec-table">
+  <tr>
+    <th>Component</th>
+    <th>Count</th>
+    <th>Details</th>
+  </tr>
+  <tr>
+    <td>Body Parts</td>
+    <td>45</td>
+    <td>Rigid link model with realistic mass distribution</td>
+  </tr>
+  <tr>
+    <td>Joints</td>
+    <td>15</td>
+    <td>Including coupling joints (patella, scapula)</td>
+  </tr>
+  <tr>
+    <td>Degrees of Freedom</td>
+    <td>31</td>
+    <td>69 DOF if coupling is not applied</td>
+  </tr>
+  <tr>
+    <td>Muscles</td>
+    <td>186</td>
+    <td>He model activation dynamics</td>
+  </tr>
+  <tr>
+    <td>Tactile Sensors</td>
+    <td>1000</td>
+    <td>Distributed based on two-point discrimination</td>
+  </tr>
+</table>
+
+<h2>Skeletal System</h2>
+
+<div class="img-showcase large">
+  <img src="assets/images/220110_front_bone_muscle.png" alt="Skeleton with muscles">
+  <img src="assets/images/220110_front_skin.png" alt="Model with skin">
+</div>
+
+<p>The skeleton model is created by scaling OpenSim adult models based on measured infant data:</p>
+
+<div class="two-col">
+  <div class="feature-box">
+    <h4>Upper Body</h4>
+    <p>Arm model from Saul et al. and McFarland et al., including shoulder complex with scapula coupling.</p>
+  </div>
+  <div class="feature-box">
+    <h4>Lower Body</h4>
+    <p>Leg model from Lai et al., featuring patella coupling joint for realistic knee mechanics.</p>
+  </div>
+</div>
+
+
+<h2>Coupling Joint System</h2>
+
+<p>Unlike standard MuJoCo, EMFANT implements <strong>coupling joints</strong> where auxiliary joints move cooperatively with main joints. This biological coordination is constrained by ligaments, muscles, and skin.</p>
+
+<h3>Implementation</h3>
+
+<p>The coupling joint uses MuJoCo's equality constraint feature:</p>
+<ol>
+  <li>Calculate target value of auxiliary joint based on main joint angle</li>
+  <li>Update the <code>polycoef</code> in equality element</li>
+  <li>MuJoCo's constraint solver generates acceleration toward target state</li>
+  <li>Repeat for each simulation step</li>
+</ol>
+
+<h3>Scapula Joint Example</h3>
+
+<p><strong>Without Coupling (Vanilla MuJoCo):</strong></p>
+<div class="img-showcase">
+  <img src="assets/images/scapula_no_coupled_joint_1.png" alt="No coupling 1">
+  <img src="assets/images/scapula_no_coupled_joint_2.png" alt="No coupling 2">
+  <img src="assets/images/scapula_no_coupled_joint_3.png" alt="No coupling 3">
+</div>
+<p class="img-caption">Scapula remains stationary regardless of arm movement</p>
+
+<p><strong>With Coupling (EMFANT):</strong></p>
+<div class="img-showcase">
+  <img src="assets/images/scapula_coupled_joint_1.png" alt="Coupling 1">
+  <img src="assets/images/scapula_coupled_joint_2.png" alt="Coupling 2">
+  <img src="assets/images/scapula_coupled_joint_3.png" alt="Coupling 3">
+</div>
+<p class="img-caption">Scapula and clavicle move cooperatively with humerus angle</p>
+
+<h2>Muscle System</h2>
+
+<p>186 muscles with attachment positions from OpenSim models. The muscle activation model is based on He et al. (2001).</p>
+
+<div class="feature-box">
+  <h4>Muscle Force Model</h4>
+  <p>Incorporates force-length relationship, force-velocity relationship, and tendon elasticity. Maximum isometric force is scaled based on infant body mass ratio.</p>
+</div>
+
+<h3>Muscle Path Constraints (Wrap Objects)</h3>
+
+<p>Wrap objects constrain muscle paths to prevent incorrect force transmission:</p>
+
+<div class="img-showcase large">
+  <div style="text-align: center;">
+    <img src="assets/images/wrap_object_before.png" alt="Default state">
+    <p class="img-caption">(a) Default state</p>
+  </div>
+  <div style="text-align: center;">
+    <img src="assets/images/wrap_object_off.png" alt="Without constraint">
+    <p class="img-caption">(b) Without constraint: wrong force direction</p>
+  </div>
+  <div style="text-align: center;">
+    <img src="assets/images/wrap_object_after.png" alt="With constraint">
+    <p class="img-caption">(c) With constraint: correct rotational force</p>
+  </div>
+</div>
+  
+
+
+<h2>Tactile System</h2>
+
+<div class="two-col">
+  <div class="feature-box">
+    <h4>Sensor Distribution</h4>
+    <p>1,000 tactile sensors distributed on the skin based on two-point discrimination density data from Weinstein (1968).</p>
+  </div>
+  <div class="feature-box">
+    <h4>Merkel Cell Model</h4>
+    <p>Low-pass filter with 50 Hz cutoff frequency simulates Merkel cell (SA-I mechanoreceptor) responses.</p>
+  </div>
+</div>
+  
+
+
+<h2>Soft Uterine Model</h2>
+
+<div class="img-showcase large">
+  <img src="assets/images/220214_uterus_tendon.png" alt="Soft uterus model">
+</div>
+
+<p>The uterine shape is derived from MRI data (FEMONUM FETUS project, 34.5 weeks of amenorrhea).</p>
+
+<h3>Soft Body Implementation</h3>
+
+<p>Since MuJoCo is a rigid body simulator, soft objects are implemented using equality constraints:</p>
+<ol>
+  <li>Divide target mesh into pieces (300 vertices, 827 edges)</li>
+  <li>Create 3 hinge joints and 3 slide joints at each vertex</li>
+  <li>Generate tendons for each edge between vertices</li>
+  <li>Apply equality constraints to maintain original positions</li>
+</ol>
+
+<h3>Parameters</h3>
+
+<table class="spec-table">
+  <tr>
+    <th>Parameter</th>
+    <th>Value</th>
+    <th>Source</th>
+  </tr>
+  <tr>
+    <td>Wall thickness</td>
+    <td>6 mm</td>
+    <td>Sokolowski et al.</td>
+  </tr>
+  <tr>
+    <td>Wall density</td>
+    <td>1059.7 kg/m³</td>
+    <td>Mendez et al.</td>
+  </tr>
+  <tr>
+    <td>Max displacement</td>
+    <td>±16.5 mm</td>
+    <td>Verbruggen et al.</td>
+  </tr>
+  <tr>
+    <td>Max rotation</td>
+    <td>±5°</td>
+    <td>Estimated</td>
+  </tr>
+</table>
+
+

@@ -1,0 +1,233 @@
+<h2>Simulation Programs</h2>
+
+<div class="app-grid">
+  <div class="app-card">
+    <h3>Spontaneous Movement</h3>
+    <p>Generate fetal spontaneous movements using spinal cord neural circuits. No explicit motor commands are given - movement emerges from body-environment dynamics.</p>
+    <code>11_infant_spinal_cord_circuit.py</code>
+  </div>
+  <div class="app-card">
+    <h3>Motion Capture Replay</h3>
+    <p>Reproduce actual infant movements from motion capture data. Useful for validating simulation against real observations.</p>
+    <code>21_infant_mocap_joint_angle.py</code>
+  </div>
+  <div class="app-card">
+    <h3>Joint Position Control</h3>
+    <p>Direct control of joint angles using position actuators. Simplest control mode for testing postures and movements.</p>
+    <code>01_infant_joint.py</code>
+  </div>
+  <div class="app-card">
+    <h3>Muscle Activation</h3>
+    <p>Control movements through muscle activation signals. More biologically realistic than joint position control.</p>
+    <code>02_infant_muscle.py</code>
+  </div>
+  <div class="app-card">
+    <h3>Tactile Simulation</h3>
+    <p>Record tactile experiences during movement. Essential for studying sensorimotor development and body representation.</p>
+    <code>03_infant_joint_with_tactile.py</code>
+  </div>
+  <div class="app-card">
+    <h3>Servomotor Control</h3>
+    <p>Motor control with servomotor-like feedback. Useful for precise trajectory following.</p>
+    <code>22_infant_mocap_joint_angle_servomotor.py</code>
+  </div>
+</div>
+
+<h2>Environment Snapshots</h2>
+
+<div class="img-showcase">
+  <div style="text-align: center;">
+    <img src="assets/images/220106_01_isi_infant_uterus_bvp_003.png" alt="Soft uterus">
+    <p class="img-caption">Intrauterine (soft)</p>
+  </div>
+  <div style="text-align: center;">
+    <img src="assets/images/220106_02_isi_infant_floor_bvp_003.png" alt="Floor">
+    <p class="img-caption">Extrauterine (floor)</p>
+  </div>
+</div>
+
+<h2>Environment Types</h2>
+
+<table class="env-table">
+  <tr>
+    <th>Environment ID</th>
+    <th>Actuator</th>
+    <th>Coupling Joint</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>ISIEnv-v0</code></td>
+    <td>None</td>
+    <td>No</td>
+    <td>Base environment, passive dynamics only</td>
+  </tr>
+  <tr>
+    <td><code>ISIJntPosActuatorEnv-v0</code></td>
+    <td>Joint position</td>
+    <td>No</td>
+    <td>Position control for each joint</td>
+  </tr>
+  <tr>
+    <td><code>ISIMuscleEnv-v0</code></td>
+    <td>Muscle</td>
+    <td>No</td>
+    <td>Muscle activation control</td>
+  </tr>
+  <tr>
+    <td><code>ISICustomMuscleEnv-v0</code></td>
+    <td>He muscle</td>
+    <td>No</td>
+    <td>Custom He model muscle dynamics</td>
+  </tr>
+  <tr>
+    <td><code>ISICallbackEnv-v0</code></td>
+    <td>None</td>
+    <td>Yes</td>
+    <td>Modified MuJoCo with coupling joints</td>
+  </tr>
+  <tr>
+    <td><code>ISICallbackJntPosActuatorEnv-v0</code></td>
+    <td>Joint position</td>
+    <td>Yes</td>
+    <td>Position control + coupling joints</td>
+  </tr>
+  <tr>
+    <td><code>ISICallbackMuscleEnv-v0</code></td>
+    <td>Muscle</td>
+    <td>Yes</td>
+    <td>Muscle control + coupling joints</td>
+  </tr>
+  <tr>
+    <td><code>ISICallbackCustomMuscleEnv-v0</code></td>
+    <td>He muscle</td>
+    <td>Yes</td>
+    <td>He muscle + coupling joints</td>
+  </tr>
+</table>
+
+<h2>Model Files</h2>
+
+<p>Available model configurations in <code>mujoco_infant/envs/assets/</code>:</p>
+
+<table class="env-table">
+  <tr>
+    <th>Model</th>
+    <th>Environment</th>
+    <th>Actuator</th>
+  </tr>
+  <tr>
+    <td><code>250501_01_muscle_uterus.xml</code></td>
+    <td>Soft Uterus</td>
+    <td>Muscle</td>
+  </tr>
+  <tr>
+    <td><code>250501_02_muscle_room.xml</code></td>
+    <td>Room</td>
+    <td>Muscle</td>
+  </tr>
+  <tr>
+    <td><code>250501_03_muscle_floor.xml</code></td>
+    <td>Floor</td>
+    <td>Muscle</td>
+  </tr>
+  <tr>
+    <td><code>250501_11_jointpos_uterus.xml</code></td>
+    <td>Soft Uterus</td>
+    <td>Joint position</td>
+  </tr>
+  <tr>
+    <td><code>250501_12_jointpos_room.xml</code></td>
+    <td>Room</td>
+    <td>Joint position</td>
+  </tr>
+  <tr>
+    <td><code>250501_21_motor_uterus.xml</code></td>
+    <td>Soft Uterus</td>
+    <td>Motor</td>
+  </tr>
+</table>
+
+<h2>Running Experiments</h2>
+
+<h3>Basic Spinal Cord Circuit Experiment</h3>
+
+<div class="code-block">
+<pre># Set OpenMP threads for tactile calculation
+export threadnum=4
+export MKL_NUM_THREADS=${threadnum}
+export NUMEXPR_NUM_THREADS=${threadnum}
+export OMP_NUM_THREADS=${threadnum}
+
+# Run spontaneous movement simulation
+PYTHONPATH=. python ./program/simulation/11_infant_spinal_cord_circuit.py \
+  --end_time=60 \
+  --log_name=default \
+  --log_base_dir=./log \
+  --camera_name=track_uterus_front \
+  --enable_file_logger=True \
+  --model_path=isi://240703_01_isi_infant_uterus_bvp.xml \
+  --enable_ext_force=True \
+  --use_spread_collision_sensing=True \
+  --headless=True</pre>
+</div>
+
+<h3>Motion Capture Replay</h3>
+
+<div class="code-block">
+<pre>PYTHONPATH=. python ./program/simulation/21_infant_mocap_joint_angle.py \
+  --model_path=isi://240703_03_isi_infant_uterus_mocap.xml \
+  --render_mode=human</pre>
+</div>
+
+<h2>Data Logging</h2>
+
+<div class="feature-box">
+  <h4>HDF5 Format</h4>
+  <p>Simulation data is saved in HDF5 format with the following structure:</p>
+</div>
+
+<div class="code-block">
+<pre>import h5py
+
+hf = h5py.File("dataset.h5", "r")
+print(hf.attrs["dt"])              # Timestep (e.g., 0.001)
+print(hf.keys())                   # Available data keys
+print(hf["mj_joint_pos"])          # Joint positions (n_joint x 3)
+print(hf["mj_joint_pos"].attrs["name"])  # Joint names</pre>
+</div>
+
+<p>Available data includes:</p>
+<ul>
+  <li><code>mj_joint_pos</code>, <code>mj_joint_vel</code> - Joint states</li>
+  <li><code>bvp_x</code>, <code>alpha</code>, <code>gamma</code> - Neural activities</li>
+  <li><code>muscle_activation</code>, <code>ia</code>, <code>ib</code> - Muscle/sensor data</li>
+  <li><code>tactile_activation</code> - Tactile sensor readings</li>
+</ul>
+
+<h2>Reinforcement Learning</h2>
+
+<p>EMFANT environments are compatible with Gymnasium for RL experiments:</p>
+
+<div class="code-block">
+<pre>import gymnasium as gym
+import mujoco_infant.envs
+
+# Create environment
+env = gym.make(
+    id="ISICallbackJntPosActuatorEnv-v0",
+    model_path="isi://250501_11_jointpos_uterus.xml",
+    render_mode="human",
+)
+
+# Standard Gymnasium interface
+observation, info = env.reset(seed=42)
+
+for _ in range(1000):
+    action = env.action_space.sample()  # or your policy
+    obs, reward, terminated, truncated, info = env.step(action)
+    
+    if terminated or truncated:
+        observation, info = env.reset()</pre>
+</div>
+
+<p>For custom reward functions, see <code>program/simulation_negaeri/</code> for examples of defining custom environments.</p>

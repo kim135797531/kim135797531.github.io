@@ -1,0 +1,20 @@
+{% assign pub = site.data.publications.main %}
+{% assign related = site.data.related_work.items %}
+<h3>Publications</h3>
+
+<div class="pub-card">
+  <div class="title">{{ pub.title }}</div>
+  <div class="authors">{{ pub.authors }}</div>
+  <div class="venue">{{ pub.venue }}</div>
+</div>
+
+<h4>Related Work</h4>
+
+<p>This project builds upon foundational research in fetal simulation and cognitive development:</p>
+
+<ul>
+  {% for work in related %}
+  <li>{{ work.citation }}: {{ work.description }}</li>
+  {% endfor %}
+</ul>
+

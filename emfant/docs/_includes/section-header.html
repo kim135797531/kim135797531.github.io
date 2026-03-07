@@ -1,0 +1,7 @@
+{% assign page_id = page.path | remove: ".md" | split: "/" | last %}
+{% assign page_data = site.data.pages.pages[page_id] %}
+<div class="section-header">
+  <h1>{{ page_data.title }}</h1>
+  <p>{{ page_data.subtitle }}</p>
+</div>
+

@@ -1,0 +1,9 @@
+# Footer links
+links:
+  - text: "GitHub Repository"
+    url: "https://github.com"
+  - text: "Documentation"
+    url: "tab-getting-started.html"
+  - text: "Examples"
+    url: "tab-applications.html"
+

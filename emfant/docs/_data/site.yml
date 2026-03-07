@@ -1,0 +1,52 @@
+# Site-wide data
+hero:
+  title: EMFANT
+  acronym: "Embodied Model of Fetus And infaNT"
+  tagline: "A biologically plausible simulation platform for human fetal and infant development, built on MuJoCo with Gymnasium compatibility."
+  tagline_compact: "A biologically plausible simulation platform for human fetal and infant development, built on MuJoCo with Gymnasium compatibility."
+  images:
+    - src: "assets/images/220110_front_all_transparent.png"
+      alt: "EMFANT Musculoskeletal Model"
+    - src: "assets/images/220214_uterus_tendon.png"
+      alt: "Fetus in Soft Uterus"
+
+stats:
+  - number: 45
+    label: "Body Parts"
+  - number: 186
+    label: "Muscles"
+  - number: 31
+    label: "Degrees of Freedom"
+  - number: 1000
+    label: "Tactile Sensors"
+
+features:
+  - title: "Gymnasium Compatible"
+    description: "Built on OpenAI Gym / Farama Gymnasium interface, enabling seamless integration with reinforcement learning frameworks."
+  - title: "MuJoCo Physics"
+    description: "Powered by MuJoCo for accurate and fast physics simulation, approximately 600x faster than OpenSim."
+  - title: "Biologically Plausible"
+    description: "Incorporates coupling joints, muscle paths, proprioceptors, and spinal cord neural circuits."
+  - title: "Soft Environment"
+    description: "Includes soft uterine model implementation for realistic intrauterine simulation."
+
+funding:
+  text: "This work was supported by JSPS KAKENHI (Grant Numbers 20H05460 and 21K11495) and the Next Generation Artificial Intelligence Research Center, The University of Tokyo."
+
+quick_start:
+  code: |
+    import gymnasium as gym
+    import mujoco_infant.envs
+
+    env = gym.make(
+        id="ISICallbackJntPosActuatorEnv-v0",
+        model_path="isi://240703_03_isi_infant_uterus_mocap.xml",
+        render_mode="human",
+    )
+
+    observation, info = env.reset(seed=42)
+
+    while True:
+        action = env.action_space.sample()
+        observation, reward, terminated, truncated, info = env.step(action)
+

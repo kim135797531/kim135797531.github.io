@@ -1,0 +1,20 @@
+# Section introduction texts
+sections:
+  overview:
+    description: "EMFANT is a comprehensive simulation platform designed for investigating early human cognitive development through constructive approaches. The platform integrates detailed musculoskeletal models, neural circuit simulations, and realistic environmental interactions."
+  
+  physical:
+    description: "Detailed musculoskeletal system with coupling joints, 186 muscles, and soft uterine environment simulation."
+  
+  neural:
+    description: "Spinal cord circuits with α/γ motor neurons, proprioceptors, and neural oscillators for spontaneous movement."
+  
+  osim2mujoco:
+    description: "Conversion tool that transforms OpenSim musculoskeletal models (.osim) into MuJoCo format (.xml)."
+
+  applications:
+    description: "Various simulation programs including spontaneous movement, motion capture replay, and RL environments."
+  
+  getting-started:
+    description: "Installation guide and quick start examples for using EMFANT in your research."
+

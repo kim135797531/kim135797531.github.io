@@ -1,0 +1,18 @@
+{% assign contributors = site.data.contributors.items %}
+{% assign funding = site.data.site.funding %}
+<h2>Contributors</h2>
+
+<div class="contributors">
+  {% for contributor in contributors %}
+  <div class="contributor">
+    <div class="name">{{ contributor.name }}</div>
+    <div class="affiliation">{{ contributor.affiliation }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="funding-box">
+  <h3>Funding</h3>
+  <p>{{ funding.text }}</p>
+</div>
+
