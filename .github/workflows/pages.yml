@@ -1,6 +1,5 @@
-# Build and deploy only emfant/docs to GitHub Pages
-# (Repo root contains clock/ and emfant/; Jekyll source is emfant/docs)
-name: Deploy EMFANT to GitHub Pages
+# Build and deploy: root + clock/ + emfant/ (at /emfant)
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -29,15 +28,22 @@ jobs:
           bundler-cache: false
 
       - name: Install GitHub Pages (Jekyll + plugins, no sass conflict)
-        run: gem install github-pages
+        run: "gem install github-pages"
 
-      - name: "Build Jekyll (source: emfant/docs)"
-        run: "jekyll build --source emfant/docs --destination _site"
+      - name: "Build Jekyll for /emfant (baseurl /emfant)"
+        run: "jekyll build --source emfant/docs --destination _site --baseurl /emfant"
+
+      - name: Assemble deploy (root + clock + emfant)
+        run: |
+          mkdir -p deploy/emfant
+          cp -r _site/* deploy/emfant/
+          cp -r clock deploy/
+          cp index.html deploy/ 2>/dev/null || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: deploy
 
   deploy:
     environment:
