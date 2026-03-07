@@ -8,8 +8,8 @@ description: >-
   early cognitive development.
 
 # Site settings
-baseurl: "" # subpath of your site, e.g. /emfant
-url: "" # base hostname, e.g. https://username.github.io
+baseurl: "/emfant" # subpath of your site, e.g. /emfant
+url: "https://kim135797531.github.io" # base hostname, e.g. https://username.github.io
 
 # Theme settings
 remote_theme: pages-themes/minimal@v0.2.0
