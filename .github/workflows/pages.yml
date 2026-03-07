@@ -25,16 +25,14 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
+          ruby-version: "3.1"
           bundler-cache: false
 
-      - name: Install Jekyll and plugins
-        run: |
-          gem install jekyll -v "~> 3.10"
-          gem install jekyll-remote-theme jekyll-sass-converter
+      - name: Install GitHub Pages (Jekyll + plugins, no sass conflict)
+        run: gem install github-pages
 
       - name: "Build Jekyll (source: emfant/docs)"
-        run: jekyll build --source emfant/docs --destination _site
+        run: "jekyll build --source emfant/docs --destination _site"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
