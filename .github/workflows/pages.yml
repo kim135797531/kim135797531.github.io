@@ -18,10 +18,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout (with LFS so images are real files, not pointers)
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           lfs: true
+
+      - name: Install Git LFS and pull LFS files
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y git-lfs
+          git lfs install
+          git lfs pull
+
+      - name: Verify image files (not LFS pointers)
+        run: |
+          echo "=== emfant/docs/assets/images (expect real PNG sizes, not ~130 bytes) ==="
+          ls -la emfant/docs/assets/images/ || true
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
