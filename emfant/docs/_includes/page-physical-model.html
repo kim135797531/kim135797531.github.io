@@ -36,8 +36,8 @@
 <h2>Skeletal System</h2>
 
 <div class="img-showcase large">
-  <img src="assets/images/220110_front_bone_muscle.png" alt="Skeleton with muscles">
-  <img src="assets/images/220110_front_skin.png" alt="Model with skin">
+  <img src="{{ '/assets/images/220110_front_bone_muscle.png' | relative_url }}" alt="Skeleton with muscles">
+  <img src="{{ '/assets/images/220110_front_skin.png' | relative_url }}" alt="Model with skin">
 </div>
 
 <p>The skeleton model is created by scaling OpenSim adult models based on measured infant data:</p>
@@ -72,17 +72,17 @@
 
 <p><strong>Without Coupling (Vanilla MuJoCo):</strong></p>
 <div class="img-showcase">
-  <img src="assets/images/scapula_no_coupled_joint_1.png" alt="No coupling 1">
-  <img src="assets/images/scapula_no_coupled_joint_2.png" alt="No coupling 2">
-  <img src="assets/images/scapula_no_coupled_joint_3.png" alt="No coupling 3">
+  <img src="{{ '/assets/images/scapula_no_coupled_joint_1.png' | relative_url }}" alt="No coupling 1">
+  <img src="{{ '/assets/images/scapula_no_coupled_joint_2.png' | relative_url }}" alt="No coupling 2">
+  <img src="{{ '/assets/images/scapula_no_coupled_joint_3.png' | relative_url }}" alt="No coupling 3">
 </div>
 <p class="img-caption">Scapula remains stationary regardless of arm movement</p>
 
 <p><strong>With Coupling (EMFANT):</strong></p>
 <div class="img-showcase">
-  <img src="assets/images/scapula_coupled_joint_1.png" alt="Coupling 1">
-  <img src="assets/images/scapula_coupled_joint_2.png" alt="Coupling 2">
-  <img src="assets/images/scapula_coupled_joint_3.png" alt="Coupling 3">
+  <img src="{{ '/assets/images/scapula_coupled_joint_1.png' | relative_url }}" alt="Coupling 1">
+  <img src="{{ '/assets/images/scapula_coupled_joint_2.png' | relative_url }}" alt="Coupling 2">
+  <img src="{{ '/assets/images/scapula_coupled_joint_3.png' | relative_url }}" alt="Coupling 3">
 </div>
 <p class="img-caption">Scapula and clavicle move cooperatively with humerus angle</p>
 
@@ -101,15 +101,15 @@
 
 <div class="img-showcase large">
   <div style="text-align: center;">
-    <img src="assets/images/wrap_object_before.png" alt="Default state">
+    <img src="{{ '/assets/images/wrap_object_before.png' | relative_url }}" alt="Default state">
     <p class="img-caption">(a) Default state</p>
   </div>
   <div style="text-align: center;">
-    <img src="assets/images/wrap_object_off.png" alt="Without constraint">
+    <img src="{{ '/assets/images/wrap_object_off.png' | relative_url }}" alt="Without constraint">
     <p class="img-caption">(b) Without constraint: wrong force direction</p>
   </div>
   <div style="text-align: center;">
-    <img src="assets/images/wrap_object_after.png" alt="With constraint">
+    <img src="{{ '/assets/images/wrap_object_after.png' | relative_url }}" alt="With constraint">
     <p class="img-caption">(c) With constraint: correct rotational force</p>
   </div>
 </div>
@@ -134,7 +134,7 @@
 <h2>Soft Uterine Model</h2>
 
 <div class="img-showcase large">
-  <img src="assets/images/220214_uterus_tendon.png" alt="Soft uterus model">
+  <img src="{{ '/assets/images/220214_uterus_tendon.png' | relative_url }}" alt="Soft uterus model">
 </div>
 
 <p>The uterine shape is derived from MRI data (FEMONUM FETUS project, 34.5 weeks of amenorrhea).</p>

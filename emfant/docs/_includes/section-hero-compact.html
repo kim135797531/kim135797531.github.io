@@ -5,7 +5,7 @@
   <p class="tagline">{{ hero.tagline_compact }}</p>
   <div class="hero-images-row">
     {% for image in hero.images %}
-    <img src="{{ image.src }}" alt="{{ image.alt }}">
+    <img src="{{ image.src | relative_url }}" alt="{{ image.alt }}">
     {% endfor %}
   </div>
 </div>

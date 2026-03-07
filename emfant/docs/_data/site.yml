@@ -5,9 +5,9 @@ hero:
   tagline: "A biologically plausible simulation platform for human fetal and infant development, built on MuJoCo with Gymnasium compatibility."
   tagline_compact: "A biologically plausible simulation platform for human fetal and infant development, built on MuJoCo with Gymnasium compatibility."
   images:
-    - src: "assets/images/220110_front_all_transparent.png"
+    - src: "/assets/images/220110_front_all_transparent.png"
       alt: "EMFANT Musculoskeletal Model"
-    - src: "assets/images/220214_uterus_tendon.png"
+    - src: "/assets/images/220214_uterus_tendon.png"
       alt: "Fetus in Soft Uterus"
 
 stats:
