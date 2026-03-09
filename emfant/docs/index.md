@@ -5,7 +5,7 @@ title: EMFANT - Embodied Model of Fetus And infaNT
 
 <div class="nav-container">
   <nav class="nav-links">
-    <a href="/" class="nav-logo">EMFANT</a>
+    <a href="{{ '/' | relative_url }}" class="nav-logo">EMFANT</a>
     <a href="#overview" data-section="overview">Overview</a>
     <a href="#physical-model" data-section="physical-model">Physical Model</a>
     <a href="#neural-model" data-section="neural-model">Neural Model</a>

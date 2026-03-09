@@ -3,6 +3,14 @@
   <h1>{{ hero.title }}</h1>
   <div class="acronym"><strong>E</strong>mbodied <strong>M</strong>odel of <strong>F</strong>etus <strong>A</strong>nd infa<strong>NT</strong></div>
   <p class="tagline">{{ hero.tagline }}</p>
+  <div class="hero-byline">
+    <div class="hero-authors">
+      {% for contributor in site.data.contributors.items %}
+      <span class="hero-author-name">{{ contributor.name }}</span>{% unless forloop.last %} · {% endunless %}
+      {% endfor %}
+    </div>
+    <div class="hero-lab">{{ hero.lab_name }}</div>
+  </div>
   <div class="hero-images">
     {% for image in hero.images %}
     <img src="{{ image.src | relative_url }}" alt="{{ image.alt }}">

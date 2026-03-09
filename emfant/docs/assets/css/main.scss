@@ -175,6 +175,28 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto 2rem;
   line-height: 1.6;
 }
+.hero .hero-byline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+.hero .hero-authors {
+  font-size: 1rem;
+  color: #c0c0c0;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+.hero .hero-authors .hero-author-name {
+  white-space: nowrap;
+}
+.hero .hero-lab {
+  font-size: 0.95rem;
+  color: #b0b0b0;
+  margin: 0;
+  font-style: italic;
+}
 .hero-images {
   display: flex;
   justify-content: center;
@@ -214,6 +236,28 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 650px;
   margin: 0 auto;
   line-height: 1.5;
+}
+.hero-compact .hero-byline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+}
+.hero-compact .hero-authors {
+  font-size: 0.95rem;
+  color: #c0c0c0;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+.hero-compact .hero-authors .hero-author-name {
+  white-space: nowrap;
+}
+.hero-compact .hero-lab {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  margin: 0;
+  font-style: italic;
 }
 .hero-images-row {
   display: flex;

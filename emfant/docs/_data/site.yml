@@ -2,6 +2,7 @@
 hero:
   title: EMFANT
   acronym: "Embodied Model of Fetus And infaNT"
+  lab_name: "Intelligent Systems and Informatics Laboratory, The University of Tokyo"
   tagline: "A biologically plausible simulation platform for human fetal and infant development, built on MuJoCo with Gymnasium compatibility."
   tagline_compact: "A biologically plausible simulation platform for human fetal and infant development, built on MuJoCo with Gymnasium compatibility."
   images:
