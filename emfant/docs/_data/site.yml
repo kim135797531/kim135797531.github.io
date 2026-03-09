@@ -32,7 +32,7 @@ features:
     description: "Includes soft uterine model implementation for realistic intrauterine simulation."
 
 funding:
-  text: "This work was supported by JSPS KAKENHI (Grant Numbers 20H05460 and 21K11495) and the Next Generation Artificial Intelligence Research Center, The University of Tokyo."
+  text: "This work was supported by JSPS KAKENHI (Grant Numbers 20H05460, 21K11495, and 25H00448) and the Next Generation Artificial Intelligence Research Center, The University of Tokyo."
 
 quick_start:
   code: |

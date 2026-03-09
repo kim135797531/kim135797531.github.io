@@ -16,7 +16,7 @@ title: EMFANT - Embodied Model of Fetus And infaNT
 </div>
 
 {% include section-hero.html %}
-{% include section-stats-bar.html %}
+<!-- {% include section-stats-bar.html %} -->
 
 <div class="section" id="overview">
 <h1>Overview</h1>
@@ -67,4 +67,4 @@ title: EMFANT - Embodied Model of Fetus And infaNT
 
 {% include footer-links.html %}
 
-{% include nav-highlight.js %}
+{% include nav-highlight.html %}

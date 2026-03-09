@@ -4,6 +4,19 @@
 (function() {
   const sections = document.querySelectorAll('.section[id]');
   const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+
+  // Logo click: if already on home, smooth scroll to top instead of navigating
+  document.querySelectorAll('.nav-logo, .tab-nav-logo').forEach(function(logo) {
+    logo.addEventListener('click', function(e) {
+      var href = this.getAttribute('href') || '';
+      var path = window.location.pathname.replace(/\/$/, '') || '/';
+      var hrefNorm = href.replace(/\/$/, '') || '/';
+      if (path === hrefNorm || path === href) {
+        e.preventDefault();
+        window.scrollTo(0, 0);
+      }
+    });
+  });
   
   function updateActiveNav() {
     let current = '';
@@ -34,6 +47,15 @@
       link.classList.remove('active');
       if (link.getAttribute('data-section') === current) {
         link.classList.add('active');
+      }
+    });
+
+    // Logo active when at top (no section active = hero area)
+    document.querySelectorAll('.nav-logo, .tab-nav-logo').forEach(function(logo) {
+      if (current === '') {
+        logo.classList.add('active');
+      } else {
+        logo.classList.remove('active');
       }
     });
   }

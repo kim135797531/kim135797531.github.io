@@ -23,17 +23,6 @@ jobs:
         with:
           lfs: true
 
-      - name: Install Git LFS and pull LFS files
-        run: |
-          sudo apt-get update -qq && sudo apt-get install -y git-lfs
-          git lfs install
-          git lfs pull
-
-      - name: Verify image files (not LFS pointers)
-        run: |
-          echo "=== emfant/docs/assets/images (expect real PNG sizes, not ~130 bytes) ==="
-          ls -la emfant/docs/assets/images/ || true
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
