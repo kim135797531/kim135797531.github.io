@@ -13,21 +13,15 @@
 {% seo %}
     <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
     <style>
-      /* Override minimal theme's narrow container */
+      /* Override minimal theme's narrow container – 상세 스타일은 assets/css/main.scss에만 정의 */
       body {
         max-width: 100% !important;
-        padding-top: 70px !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
         padding-bottom: 0 !important;
         margin: 0 !important;
         background: #fff !important;
         color: #333 !important;
-      }
-      .wrapper {
-        max-width: 1400px !important;
-        margin: 0 auto;
-        padding: 0 2rem;
       }
       /* Ensure all text is visible */
       * {
@@ -36,6 +30,11 @@
     </style>
   </head>
   <body>
+    {% if page.nav == 'tab' %}
+      {% include nav-tab.html %}
+    {% elsif page.nav == 'main' or page.nav == nil %}
+      {% include nav-main.html %}
+    {% endif %}
     <div class="wrapper">
       {{ content }}
     </div>

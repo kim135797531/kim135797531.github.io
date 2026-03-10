@@ -4,6 +4,10 @@
 (function() {
   const sections = document.querySelectorAll('.section[id]');
   const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+  const navContainer = document.querySelector('.nav-container');
+  const tabNavContainer = document.querySelector('.tab-nav-container');
+  const navToggle = document.querySelector('.nav-toggle');
+  const tabNavToggle = document.querySelector('.tab-nav-toggle');
 
   // Logo click: if already on home, smooth scroll to top instead of navigating
   document.querySelectorAll('.nav-logo, .tab-nav-logo').forEach(function(logo) {
@@ -63,6 +67,41 @@
   window.addEventListener('scroll', updateActiveNav);
   window.addEventListener('load', updateActiveNav);
   window.addEventListener('resize', updateActiveNav);
+
+  // Hamburger toggle handlers (mobile nav)
+  function setupToggle(container, toggleSelector, openClass, menuSelector) {
+    if (!container) return;
+    const toggle = container.querySelector(toggleSelector);
+    const menu = container.querySelector(menuSelector);
+    if (!toggle || !menu || typeof toggle.addEventListener !== 'function') return;
+
+    toggle.addEventListener('click', function() {
+      const isOpen = container.classList.toggle(openClass);
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Close menu when a link inside the menu is clicked; for anchor links, scroll so nav stays visible
+    menu.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var href = link.getAttribute('href') || '';
+        if (href.indexOf('#') === 0) {
+          var id = href.slice(1);
+          var target = document.getElementById(id);
+          if (target) {
+            e.preventDefault();
+            var navHeight = (document.querySelector('.nav-container') || document.querySelector('.tab-nav-container') || {}).offsetHeight || 0;
+            var y = target.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - navHeight;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }
+        container.classList.remove(openClass);
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  setupToggle(navContainer, '.nav-toggle', 'nav-open', '.nav-menu');
+  setupToggle(tabNavContainer, '.tab-nav-toggle', 'tab-nav-open', '.tab-nav-menu');
 })();
 </script>
 

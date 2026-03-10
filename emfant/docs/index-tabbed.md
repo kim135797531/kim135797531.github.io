@@ -1,9 +1,8 @@
 ---
 layout: custom
 title: EMFANT - Embodied Model of Fetus And infaNT
+nav: tab
 ---
-
-{% include nav-tab.html %}
 
 {% include section-hero-compact.html %}
 {% include section-stats-bar.html %}

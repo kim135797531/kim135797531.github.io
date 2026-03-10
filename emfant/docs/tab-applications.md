@@ -1,9 +1,9 @@
 ---
 layout: custom
 title: Applications - EMFANT
+nav: tab
 ---
 
-{% include nav-tab.html %}
 {% include section-header.html %}
 {% include page-applications.html %}
 

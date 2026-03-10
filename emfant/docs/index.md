@@ -1,19 +1,8 @@
 ---
 layout: custom
 title: EMFANT - Embodied Model of Fetus And infaNT
+nav: main
 ---
-
-<div class="nav-container">
-  <nav class="nav-links">
-    <a href="{{ '/' | relative_url }}" class="nav-logo">EMFANT</a>
-    <a href="#overview" data-section="overview">Overview</a>
-    <a href="#physical-model" data-section="physical-model">Physical Model</a>
-    <a href="#neural-model" data-section="neural-model">Neural Model</a>
-    <a href="#osim2mujoco" data-section="osim2mujoco">Osim2Mujoco</a>
-    <a href="#applications" data-section="applications">Applications</a>
-    <a href="#getting-started" data-section="getting-started">Getting Started</a>
-  </nav>
-</div>
 
 {% include section-hero.html %}
 <!-- {% include section-stats-bar.html %} -->

@@ -1,9 +1,9 @@
 ---
 layout: custom
 title: Physical Model - EMFANT
+nav: tab
 ---
 
-{% include nav-tab.html %}
 {% include section-header.html %}
 {% include page-physical-model.html %}
 

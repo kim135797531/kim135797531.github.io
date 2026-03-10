@@ -1,9 +1,9 @@
 ---
 layout: custom
 title: Getting Started - EMFANT
+nav: tab
 ---
 
-{% include nav-tab.html %}
 {% include section-header.html %}
 {% include page-getting-started.html %}
 
