@@ -817,6 +817,34 @@ h1, h2, h3, h4, h5, h6 {
   background: #f8f9fa;
 }
 
+/* Table wrapper: horizontal scroll on narrow viewports, sticky first column */
+.table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1.2rem;
+}
+.table-wrap .env-table {
+  min-width: 600px;
+  margin-bottom: 0;
+}
+.table-wrap .env-table th:first-child,
+.table-wrap .env-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.06);
+}
+.table-wrap .env-table th:first-child {
+  background: #f8f9fa;
+}
+.table-wrap .env-table td:first-child {
+  background: #fff;
+}
+.table-wrap .env-table tr:hover td:first-child {
+  background: #f8f9fa;
+}
+
 /* Grid Layouts */
 .two-col {
   display: grid;
