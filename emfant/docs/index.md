@@ -7,6 +7,8 @@ nav: main
 {% include section-hero.html %}
 <!-- {% include section-stats-bar.html %} -->
 
+<p class="release-notice">This page provides a technical overview of EMFANT. Source code and model assets are currently being prepared for public release and will be made available on GitHub upon publication of an associated manuscript.</p>
+
 <div class="section" id="overview">
 <h1>Overview</h1>
 {% assign intro = site.data.section_intros.sections.overview %}
@@ -27,27 +29,6 @@ nav: main
 {% assign intro = site.data.section_intros.sections.neural %}
 <p class="section-description">{{ intro.description }}</p>
 {% include page-neural-model.html %}
-</div>
-
-<div class="section" id="osim2mujoco">
-<h1>Osim2Mujoco</h1>
-{% assign intro = site.data.section_intros.sections.osim2mujoco %}
-<p class="section-description">{{ intro.description }}</p>
-{% include page-osim2mujoco.html %}
-</div>
-
-<div class="section" id="applications">
-<h1>Applications</h1>
-{% assign intro = site.data.section_intros.sections.applications %}
-<p class="section-description">{{ intro.description }}</p>
-{% include page-applications.html %}
-</div>
-
-<div class="section" id="getting-started">
-<h1>Getting Started</h1>
-{% assign intro = site.data.section_intros.sections.getting-started %}
-<p class="section-description">{{ intro.description }}</p>
-{% include page-getting-started.html %}
 </div>
 
 <div class="section" id="contributors">
